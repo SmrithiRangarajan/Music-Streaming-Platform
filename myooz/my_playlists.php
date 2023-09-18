@@ -1,0 +1,101 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // Redirect to login page if not logged in
+    exit();
+}
+
+$servername = "localhost";
+$username = "root";
+$password = "pixie123";
+$dbname = "music_streaming_db";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['remove_song'])) {
+    $songId = $_POST['remove_song'];
+
+    // Assuming the user is logged in and you have their user_id stored in a session variable
+    $userId = $_SESSION["user_id"];
+
+    // Remove the song from favorites
+    $removeQuery = "DELETE FROM playlist_songs WHERE song_id = $songId";
+    if (mysqli_query($conn, $removeQuery)) {
+        // Redirect back to the favorites page after removing the song
+        header("Location: my_playlists.php");
+        exit();
+    } else {
+        echo "Error removing the song.";
+    }
+}
+
+$userId = $_SESSION["user_id"];
+$query = "SELECT songs.song_id, songs.cover_path, songs.title FROM songs
+        INNER JOIN playlist_songs ON songs.song_id = playlist_songs.song_id
+        INNER JOIN user_playlists ON playlist_songs.playlist_id = user_playlists.playlist_id
+        WHERE user_playlists.user_id = $userId";
+
+$result = $conn->query($query);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Playlists</title>
+    <link rel="stylesheet" href="home_style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="brand"><img src="logo.png" alt="MYOOZ">BOOM</li>
+            <li><a href="homepage.php">Home</a></li>
+            <li><a href="my_playlists.php">My Playlists</a></li>
+            <li><a href="my_favourites.php">My Favourites</a></li>
+            <li><a href="frequently_listened.php">Frequently Listened</a></li>
+            <li><a href="about.php">Discover</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="songlist">
+            <h1>Songs Added</h1>
+            <div class="songcontainer">
+                <?php
+                
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="songitem">';
+                        echo '<img src="' . $row["cover_path"] . '" alt="' . $row["title"] . '">';
+                        echo '<span>' . $row["title"] . '</span>';
+                        //echo '<button class="removefromplaylist" data-song="' . $row["title"] . '">Remove</button>';
+
+                        echo '<form method="post">';
+                        echo '<input type="hidden" name="remove_song" value="' . $row["song_id"] . '">';
+                        echo '<button type="submit">Remove</button>';
+                        echo '</form>';
+
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p>Your playlist is empty!</p>';
+                }
+                ?>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/067799c4d0.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,300&family=Tilt+Prism&display=swap');
+body{
+    background-color: #49121e;
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    font-family: 'Tilt Prism', cursive;
+
+}
+
+nav ul{
+    display: flex;
+    align-items: center; 
+    list-style-type: none;
+    height: 50px;
+    background-color: black;
+    color: white;
+}
+
+nav ul li{
+    padding: 0 15px;
+}
+
+nav ul li a{
+    color: white;
+}
+nav ul li a:hover{
+    background-color: #b05060;
+}
+.brand img{
+    width: 40px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    font-weight: bolder;
+    font-size: x-large;
+}
+
+.container{
+    min-height: 70vh;
+    display: flex;
+    background-color: burlywood;
+    color: white;
+    margin: 25px auto;
+    width: 70%;
+    border-radius: 10px;
+    padding: 30px;
+    background-image: url("bg.jpg");
+    font-family: 'Merriweather', serif;
+    
+}
+.bottom{
+    position: sticky;
+    height: 90px;
+    background-color: black;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    flex-direction: column;
+}
+
+.icons{
+    margin-top: 15px;
+}
+
+.icons i{
+    cursor: pointer;
+}
+
+#progressbar{
+    width: 80vw;
+    cursor: pointer;
+}
+
+.songitem{
+    height: 50px;
+    display: flex;
+    background-color: white;
+    color: black;
+    width: 150%;
+    margin: 20px 0;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.songitem img{
+    width: 50px;
+    border-radius: 20px;
+    
+}
+
+.timestamp{
+    margin: 0 20px;
+}
+.timestamp i{
+    cursor: pointer;
+}
+
+.songcontainer{
+    margin-top: 50px;
+}
+
+.songlistplay i{
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.addtoplaylist{
+   
+    display: inline-block;
+    padding: 10px 20px;
+    background-color:black;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  
+}
+
+.addtoplaylist:hover{
+    background-color: #d4617c;
+}
+
+
+/* Add this to your home_style.css file */
+
+/* Style for the table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    
+}
+
+table, th, td {
+    border: 1px solid #cb9a9a;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #221b1b;
+}
+
+/* Style for the artist details section */
+.artist-item {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #d17e7e;
+    border-radius: 5px;
+    background-color: #221b1b;
+}
+
+.artist-item h2 {
+    margin-top: 0;
+}
+
+/* Responsive table styling */
+@media (max-width: 768px) {
+    table {
+        font-size: 12px;
+    }
+}
